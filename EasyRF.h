@@ -8,17 +8,21 @@ Company: Negendo
 Date: Sep26,2018
 */
 #include "RF24.h"
-
+#ifndef DEBUG
+#define DEBUG
+#endif
 #define RFCHANNEL 108
 
 #define TEMPLATE_ADDR 0xF0F0F00000LL 
 #define DEFAULT_ADDR 0xF1F2F3AADDLL
 ///
+class RF24;
 class EasyRF  {
 public:
-EasyRF (int CE_PIN,int CSN_PIN);
-RF24 radio = RF24(_CE,_CSN);
-
+//EasyRF (int CE_PIN,int CSN_PIN): _CE(CE_PIN),_CSN(CSN_PIN) {}
+//RF24 radio = RF24((uint16_t)_CE,(uint16_t)_CSN);
+EasyRF(RF24& _radio);
+RF24& radio; 
 void init(uint16_t myaddress);
 void SetAddress(uint16_t myaddress);
 bool RFSend(uint16_t to,const void* buf, uint8_t len);  //send a point to point Message
@@ -32,6 +36,7 @@ private:
 int _CE;
 int _CSN; 
 uint64_t convert_address(uint16_t addr); 
+uint64_t address; 
 uint16_t my_node;
 uint16_t to_node; 
 uint16_t multi_node; 
