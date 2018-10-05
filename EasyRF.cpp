@@ -47,6 +47,13 @@ Serial.println("NRF24L01 Connection Fault!");
 ////
 void EasyRF::SetAddress(uint16_t myaddress){
     my_node = myaddress; 
+    #ifdef DEBUG
+    uint64_t ad = convert_address(myaddress);
+    Serial.print("Convert Address from 16bit: ");
+    Serial.print(myaddress,HEX);
+    Serial.print("  to 40bit: ");
+    //Serial.println(ad);
+    #endif 
     //address = convert_address(my_node);
     radio.openReadingPipe(1,convert_address(my_node));
     radio.startListening();
