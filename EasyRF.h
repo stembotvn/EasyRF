@@ -9,7 +9,7 @@ Date: Sep26,2018
 */
 #include "RF24.h"
 #ifndef DEBUG
-#define DEBUG
+//#define DEBUG
 #endif
 #define RFCHANNEL 108
 
