@@ -112,6 +112,7 @@ return (addr | (base_address & ~0xFFFFLL));
 /////////////
 bool EasyRF::RFSend(uint16_t to,const void* buf, uint8_t len){
     bool OK ;
+    
  radio.stopListening(); 
  radio.openWritingPipe(convert_address(to));
  OK = radio.write(buf,len); 
