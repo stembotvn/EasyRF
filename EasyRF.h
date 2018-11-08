@@ -25,14 +25,15 @@ public:
 EasyRF(RF24& _radio);
 RF24& radio; 
 void init(uint16_t myaddress);
-void init(uint16_t myaddress,uint8_t channel);
+//void init(uint16_t myaddress,uint8_t channel);
 
 void SetAddress(uint16_t myaddress);      //pipe 1    USB dongle pairing 
 void SetMultiCastAddress(uint16_t addr,uint8_t ch);//setup Multicast Address and Channel
 bool RFSend(uint16_t to,const void* buf, uint8_t len);  //send a point to point Message
 bool RFMulticast(uint16_t to,const void* buf, uint8_t len);  //Send a multicast Message to a Multicast Address
+void Multicast_readingStart();
 uint8_t RFRead(void* buf);
-void RFRead_Multicast(void* buf);
+void RFRead_Multicast(void* buf); 
 bool RFDataCome();       //check if RF data comming from channel 1 and ready for receive, get the comming data len
 uint8_t RFMultiCome();  // check if RF Data comming from multi Channel, return the channel  (channel = 1-5)
 //uint8_t getPayload_len();
