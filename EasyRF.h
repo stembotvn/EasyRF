@@ -35,6 +35,7 @@ void Multicast_readingStart();
 uint8_t RFRead(void* buf);
 void RFRead_Multicast(void* buf); 
 bool RFDataCome();       //check if RF data comming from channel 1 and ready for receive, get the comming data len
+bool RFDataCome(uint8_t &pipe);
 uint8_t RFMultiCome();  // check if RF Data comming from multi Channel, return the channel  (channel = 1-5)
 //uint8_t getPayload_len();
 private:

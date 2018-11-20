@@ -31,7 +31,8 @@ if (radio.isChipConnected())
 radio.setChannel(myChannel); 
 radio.enableDynamicPayloads();
 radio.openReadingPipe(1,convert_address(my_node));
-//radio.openReadingPipe(multiCast_channel,convert_address(multiCast_node));
+radio.openReadingPipe(multiCast_channel,convert_address(multiCast_node));
+radio.setAutoAck(multiCast_channel,false);	
 radio.startListening();
 #ifdef DEBUG
 Serial.println("NRF READY");
@@ -151,6 +152,18 @@ return len;
 /////////////////////////////////
 bool EasyRF::RFDataCome(){
  return radio.available();
+}
+///////////////////////////////
+bool EasyRF::RFDataCome(uint8_t  &pipe){
+ uint8_t pipeNo; 
+ if (radio.available(&pipeNo)) {
+ pipe = pipeNo;
+  return true; 
+ } 
+ else 
+  {
+  return false; 
+  }
 }
 /////////////////////////////////
 uint8_t EasyRF::RFMultiCome(){
