@@ -32,7 +32,7 @@ radio.setChannel(myChannel);
 radio.enableDynamicPayloads();
 radio.openReadingPipe(1,convert_address(my_node));
 radio.openReadingPipe(multiCast_channel,convert_address(multiCast_node));
-radio.setAutoAck(multiCast_channel,false);	
+//radio.setAutoAck(multiCast_channel,false);	
 radio.startListening();
 #ifdef DEBUG
 Serial.println("NRF READY");

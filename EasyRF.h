@@ -14,7 +14,7 @@ Date: Sep26,2018
 #define RFCHANNEL 108
 
 #define TEMPLATE_ADDR 0xF0F0F00000LL 
-#define MULTICAST_BASE 5000
+#define MULTICAST_BASE 255
 
 ///
 class RF24;
