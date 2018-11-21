@@ -23,14 +23,16 @@ if (OK) {
 Serial.println("NRF begin");
 }
 else Serial.println("NRF startUp fail");
-#endif
 Serial.println("Check NRF24L01 Connection!");
+#endif
+
 if (radio.isChipConnected())
  {
 radio.setChannel(myChannel); 
 radio.enableDynamicPayloads();
 radio.openReadingPipe(1,convert_address(my_node));
-radio.openReadingPipe(multiCast_channel,convert_address(multiCast_node));
+//radio.openReadingPipe(multiCast_channel,convert_address(multiCast_node));
+//radio.setAutoAck(multiCast_channel,false);	
 radio.startListening();
 #ifdef DEBUG
 Serial.println("NRF READY");
@@ -45,7 +47,16 @@ Serial.println("Could not find NRF24L01. CHECK NRF Module connection");
     }
     delay(1000);
 }
+/////
+void EasyRF::Multicast_readingStart(){
+    radio.openReadingPipe(multiCast_channel,convert_address(multiCast_node));
+    radio.startListening();
+   //radio.setAutoAck(multiCast_channel,false);	
+
+}
+
 ////
+/*
 void EasyRF::init(uint16_t myaddress,uint8_t channel){
     bool OK = false;
 my_node = myaddress; 
@@ -77,7 +88,7 @@ Serial.println("Could not find NRF24L01. CHECK NRF Module connection");
     #endif
     }
     delay(1000);
-}
+}*/
 ////
 ///
 void EasyRF::SetAddress(uint16_t myaddress){
@@ -134,12 +145,26 @@ bool EasyRF::RFMulticast(uint16_t to,const void* buf, uint8_t len){
 /////////////////
 uint8_t EasyRF::RFRead(void* buf){
  uint8_t len = radio.getDynamicPayloadSize();
+
  radio.read(buf,len); 
+ 
 return len; 
  }
 /////////////////////////////////
 bool EasyRF::RFDataCome(){
  return radio.available();
+}
+///////////////////////////////
+bool EasyRF::RFDataCome(uint8_t  &pipe){
+ uint8_t pipeNo; 
+ if (radio.available(&pipeNo)) {
+ pipe = pipeNo;
+  return true; 
+ } 
+ else 
+  {
+  return false; 
+  }
 }
 /////////////////////////////////
 uint8_t EasyRF::RFMultiCome(){
