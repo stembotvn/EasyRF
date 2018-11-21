@@ -31,7 +31,7 @@ if (radio.isChipConnected())
 radio.setChannel(myChannel); 
 radio.enableDynamicPayloads();
 radio.openReadingPipe(1,convert_address(my_node));
-radio.openReadingPipe(multiCast_channel,convert_address(multiCast_node));
+//radio.openReadingPipe(multiCast_channel,convert_address(multiCast_node));
 //radio.setAutoAck(multiCast_channel,false);	
 radio.startListening();
 #ifdef DEBUG
@@ -51,6 +51,7 @@ Serial.println("Could not find NRF24L01. CHECK NRF Module connection");
 void EasyRF::Multicast_readingStart(){
     radio.openReadingPipe(multiCast_channel,convert_address(multiCast_node));
     radio.startListening();
+   //radio.setAutoAck(multiCast_channel,false);	
 
 }
 
