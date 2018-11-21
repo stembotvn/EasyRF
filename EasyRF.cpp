@@ -51,7 +51,7 @@ Serial.println("Could not find NRF24L01. CHECK NRF Module connection");
 void EasyRF::Multicast_readingStart(){
     radio.openReadingPipe(multiCast_channel,convert_address(multiCast_node));
     radio.startListening();
-   // radio.setAutoAck(multiCast_channel,false);	
+    radio.setAutoAck(multiCast_channel,false);	
 
 }
 

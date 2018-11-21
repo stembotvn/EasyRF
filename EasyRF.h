@@ -45,7 +45,7 @@ uint64_t convert_address(uint16_t addr);
 uint64_t address; 
 uint16_t my_node;
 uint16_t to_node; 
-uint16_t multiCast_node = 255; 
+uint16_t multiCast_node = 250; 
 uint8_t  multiCast_channel = 2; 
 uint8_t myChannel = RFCHANNEL; 
 uint8_t payload_len; 
