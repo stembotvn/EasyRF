@@ -51,45 +51,10 @@ Serial.println("Could not find NRF24L01. CHECK NRF Module connection");
 void EasyRF::Multicast_readingStart(){
     radio.openReadingPipe(multiCast_channel,convert_address(multiCast_node));
     radio.startListening();
-   //radio.setAutoAck(multiCast_channel,false);	
+   radio.setAutoAck(multiCast_channel,false);	
 
 }
 
-////
-/*
-void EasyRF::init(uint16_t myaddress,uint8_t channel){
-    bool OK = false;
-my_node = myaddress; 
-#ifdef DEBUG
-Serial.begin(115200);
-Serial.println("NRF init...");
-#endif
-OK=radio.begin();
-#ifdef DEBUG
-if (OK) {
-Serial.println("NRF begin");
-}
-else Serial.println("NRF startUp fail");
-#endif
-if (radio.isChipConnected())
- {
-radio.setChannel(myChannel); 
-radio.enableDynamicPayloads();
-SetAddress(my_node);
-#ifdef DEBUG
-Serial.println("NRF READY");
-//radio.printDetails();                   // Dump the configuration of the rf unit for debugging
-#endif 
-   }
-else
-     {
-    #ifdef DEBUG 
-Serial.println("Could not find NRF24L01. CHECK NRF Module connection");
-    #endif
-    }
-    delay(1000);
-}*/
-////
 ///
 void EasyRF::SetAddress(uint16_t myaddress){
     my_node = myaddress; 
