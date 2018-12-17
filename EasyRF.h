@@ -25,6 +25,8 @@ public:
 EasyRF(RF24& _radio);
 RF24& radio; 
 void init(uint16_t myaddress);
+void RFpowerDown();
+void RFpowerUp();
 //void init(uint16_t myaddress,uint8_t channel);
 
 void SetAddress(uint16_t myaddress);      //pipe 1    USB dongle pairing 

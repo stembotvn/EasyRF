@@ -31,6 +31,9 @@ if (radio.isChipConnected())
 radio.setChannel(myChannel); 
 radio.setPALevel(RF24_PA_LOW);
 radio.enableDynamicPayloads();
+radio.setDataRate(RF24_250KBPS);
+radio.setRetries(10,1);
+
 radio.openReadingPipe(1,convert_address(my_node));
 //radio.openReadingPipe(multiCast_channel,convert_address(multiCast_node));
 //radio.setAutoAck(multiCast_channel,false);	
@@ -47,6 +50,14 @@ Serial.println("Could not find NRF24L01. CHECK NRF Module connection");
     #endif
     }
     delay(1000);
+}
+/////
+void EasyRF::RFpowerDown(){
+radio.powerDown();
+}
+void EasyRF::RFpowerUp(){
+radio.powerUp();
+  
 }
 /////
 void EasyRF::Multicast_readingStart(){
