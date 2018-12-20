@@ -33,7 +33,7 @@ radio.setPALevel(RF24_PA_LOW);
 radio.enableDynamicPayloads();
 radio.setDataRate(RF24_250KBPS);
 radio.setRetries(10,1);
-radio.setCRCLength( RF24_CRC_8 );
+//radio.setCRCLength( RF24_CRC_8 );
 radio.openReadingPipe(1,convert_address(my_node));
 //radio.openReadingPipe(multiCast_channel,convert_address(multiCast_node));
 //radio.setAutoAck(multiCast_channel,false);	
@@ -121,7 +121,9 @@ bool EasyRF::RFMulticast(uint16_t to,const void* buf, uint8_t len){
 }
 /////////////////
 uint8_t EasyRF::RFRead(void* buf){
- uint8_t len = radio.getDynamicPayloadSize();
+ uint8_t len;
+ if (dynPayload_en) len = radio.getDynamicPayloadSize();
+ else len = max_payload;
 
  radio.read(buf,len); 
  

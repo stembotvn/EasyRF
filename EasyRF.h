@@ -27,6 +27,12 @@ RF24& radio;
 void init(uint16_t myaddress);
 void RFpowerDown();
 void RFpowerUp();
+void setDynamicPayload(bool en) {
+	dynPayload_en = en;
+} 
+void setMaxPayload(uint8_t max) {
+	max_payload = max; 
+}
 //void init(uint16_t myaddress,uint8_t channel);
 
 void SetAddress(uint16_t myaddress);      //pipe 1    USB dongle pairing 
@@ -53,5 +59,7 @@ uint8_t myChannel = RFCHANNEL;
 uint8_t payload_len; 
 uint8_t Mpayload_len;
 uint64_t base_address = TEMPLATE_ADDR;
+uint8_t max_payload = 32; 
+bool  dynPayload_en = true; 
 };
 #endif
