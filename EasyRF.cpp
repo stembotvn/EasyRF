@@ -30,7 +30,9 @@ if (radio.isChipConnected())
  {
 radio.setChannel(myChannel); 
 radio.setPALevel(RF24_PA_LOW);
+if (dynPayload_en){ 
 radio.enableDynamicPayloads();
+}
 radio.setDataRate(RF24_250KBPS);
 radio.setRetries(10,1);
 //radio.setCRCLength( RF24_CRC_8 );
@@ -129,7 +131,16 @@ uint8_t EasyRF::RFRead(void* buf){
  
 return len; 
  }
-/////////////////////////////////
+///////////////////////////
+ void EasyRF::RFRead(void* buf,uint8_t byteLen){
+ uint8_t len;
+len = byteLen;
+
+ radio.read(buf,len); 
+ 
+//return len; 
+ }
+ ///////////////////////////
 bool EasyRF::RFDataCome(){
  return radio.available();
 }

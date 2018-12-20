@@ -33,6 +33,9 @@ void setDynamicPayload(bool en) {
 void setMaxPayload(uint8_t max) {
 	max_payload = max; 
 }
+void setDataSpeed(rf24_datarate_e speed) {
+	radio.setDataRate(speed);
+}
 //void init(uint16_t myaddress,uint8_t channel);
 
 void SetAddress(uint16_t myaddress);      //pipe 1    USB dongle pairing 
@@ -41,6 +44,7 @@ bool RFSend(uint16_t to,const void* buf, uint8_t len);  //send a point to point 
 bool RFMulticast(uint16_t to,const void* buf, uint8_t len);  //Send a multicast Message to a Multicast Address
 void Multicast_readingStart();
 uint8_t RFRead(void* buf);
+void RFRead(void* buf,uint8_t byteLen);
 void RFRead_Multicast(void* buf); 
 bool RFDataCome();       //check if RF data comming from channel 1 and ready for receive, get the comming data len
 bool RFDataCome(uint8_t &pipe);
