@@ -28,14 +28,15 @@ Serial.println("Check NRF24L01 Connection!");
 
 if (radio.isChipConnected())
  {
+isRF24Connected=true;     
 radio.setChannel(myChannel); 
-radio.setPALevel(RF24_PA_LOW);
+radio.setPALevel(rfPower);
 if (dynPayload_en){ 
 radio.enableDynamicPayloads();
 }
-radio.setDataRate(RF24_250KBPS);
-radio.setRetries(10,1);
-//radio.setCRCLength( RF24_CRC_8 );
+radio.setDataRate(rfSpeed);
+radio.setRetries(retryDelay,retryTimes);
+radio.setCRCLength( crcLen );
 radio.openReadingPipe(1,convert_address(my_node));
 //radio.openReadingPipe(multiCast_channel,convert_address(multiCast_node));
 //radio.setAutoAck(multiCast_channel,false);	
@@ -50,15 +51,16 @@ else
     #ifdef DEBUG 
 Serial.println("Could not find NRF24L01. CHECK NRF Module connection");
     #endif
+    isRF24Connected = false;
     }
     delay(1000);
 }
 /////
 void EasyRF::RFpowerDown(){
-radio.powerDown();
+    if (radio.isChipConnected()) radio.powerDown();
 }
 void EasyRF::RFpowerUp(){
-radio.powerUp();
+if (radio.isChipConnected())  radio.powerUp();
   
 }
 /////
@@ -104,20 +106,24 @@ bool EasyRF::RFSend(uint16_t to,const void* buf, uint8_t len){
     bool OK ;
     
  radio.stopListening(); 
+ if (rfSpeed == RF24_250KBPS) radio.flush_tx();
  radio.openWritingPipe(convert_address(to));
  OK = radio.write(buf,len); 
  radio.startListening(); 
-
+ if (!autoACK) OK = true; 
  return OK; 
 }
 /////////////
 bool EasyRF::RFMulticast(uint16_t to,const void* buf, uint8_t len){
     bool OK;
  radio.stopListening(); 
+ if (rfSpeed == RF24_250KBPS) radio.flush_tx();
+
  radio.enableDynamicAck();
  radio.openWritingPipe(convert_address((uint16_t)to));
  OK = radio.write(buf,len,1); //write multicast, no ack.
  radio.startListening(); 
+ if (!autoACK) OK = true; 
 
  return OK;   
 }
