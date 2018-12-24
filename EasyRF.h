@@ -24,7 +24,7 @@ public:
 //RF24 radio = RF24((uint16_t)_CE,(uint16_t)_CSN);
 EasyRF(RF24& _radio);
 RF24& radio; 
-void init(uint16_t myaddress);
+bool init(uint16_t myaddress);
 void RFpowerDown();
 void RFpowerUp();
 void setDynamicPayload(bool en) {
@@ -102,7 +102,7 @@ uint8_t max_payload = 32;
 bool  dynPayload_en = true; 
 bool isRF24Connected = false;
 rf24_crclength_e crcLen = RF24_CRC_8;
-rf24_datarate_e rfSpeed = RF24_1MBPS;
+rf24_datarate_e rfSpeed = RF24_250KBPS;
 rf24_pa_dbm_e rfPower = RF24_PA_LOW;
 bool autoACK = true; 
 int retryDelay = 10;

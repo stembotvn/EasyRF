@@ -10,7 +10,7 @@ EasyRF::EasyRF(RF24& _radio) : radio(_radio) {
 
 }
 ////
-void EasyRF::init(uint16_t myaddress){
+bool EasyRF::init(uint16_t myaddress){
     bool OK = false;
 my_node = myaddress; 
 #ifdef DEBUG
@@ -18,16 +18,9 @@ Serial.begin(115200);
 Serial.println("NRF init...");
 #endif
 OK=radio.begin();
-#ifdef DEBUG
-if (OK) {
-Serial.println("NRF begin");
-}
-else Serial.println("NRF startUp fail");
-Serial.println("Check NRF24L01 Connection!");
-#endif
 
-if (radio.isChipConnected())
- {
+if (OK)
+    {
 isRF24Connected=true;     
 radio.setChannel(myChannel); 
 radio.setPALevel(rfPower);
@@ -45,7 +38,7 @@ radio.startListening();
 Serial.println("NRF READY");
 //radio.printDetails();                   // Dump the configuration of the rf unit for debugging
 #endif 
-   }
+    }
 else
      {
     #ifdef DEBUG 
@@ -54,6 +47,7 @@ Serial.println("Could not find NRF24L01. CHECK NRF Module connection");
     isRF24Connected = false;
     }
     delay(1000);
+    return OK;
 }
 /////
 void EasyRF::RFpowerDown(){
