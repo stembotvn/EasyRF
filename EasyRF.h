@@ -29,9 +29,9 @@ void RFpowerDown();
 void RFpowerUp();
 void setDynamicPayload(bool en) {
 	dynPayload_en = en;
-	if (radio.isChipConnected()) {
-		if (en)  radio.enableDynamicPayloads();
-	}
+	//if (radio.isChipConnected()) {
+	//	if (en)  radio.enableDynamicPayloads();
+   // 	}
 
 } 
 void setMaxPayload(uint8_t max) {
@@ -106,6 +106,6 @@ rf24_datarate_e rfSpeed = RF24_1MBPS;
 rf24_pa_dbm_e rfPower = RF24_PA_LOW;
 bool autoACK = true; 
 int retryDelay = 10;
-int retryTimes = 2;
+int retryTimes = 4;
 };
 #endif
