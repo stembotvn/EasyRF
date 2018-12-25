@@ -24,6 +24,9 @@ public:
 //RF24 radio = RF24((uint16_t)_CE,(uint16_t)_CSN);
 EasyRF(RF24& _radio);
 RF24& radio; 
+bool RFbegin(){
+	return radio.begin();
+}
 bool init(uint16_t myaddress);
 void RFpowerDown();
 void RFpowerUp();
