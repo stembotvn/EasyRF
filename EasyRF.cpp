@@ -19,7 +19,7 @@ Serial.println("NRF init...");
 #endif
 OK=radio.begin();
 
-if (OK)
+if (radio.isChipConnected())
     {
 isRF24Connected=true;     
 radio.setChannel(myChannel); 
@@ -100,7 +100,7 @@ bool EasyRF::RFSend(uint16_t to,const void* buf, uint8_t len){
     bool OK ;
     
  radio.stopListening(); 
- if (rfSpeed == RF24_250KBPS) radio.flush_tx();
+ //if (rfSpeed == RF24_250KBPS) radio.flush_tx();
  radio.openWritingPipe(convert_address(to));
  OK = radio.write(buf,len); 
  radio.startListening(); 

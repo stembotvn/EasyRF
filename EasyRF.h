@@ -40,30 +40,37 @@ void setDynamicPayload(bool en) {
 void setMaxPayload(uint8_t max) {
 	max_payload = max; 
 }
+
 void setDataSpeed(rf24_datarate_e speed) {
 	if (radio.isChipConnected()) radio.setDataRate(speed);
 	rfSpeed = speed;
 }
+
 void setPowerRF(rf24_pa_dbm_e pw){
 	if (radio.isChipConnected()) radio.setPALevel(pw);
 	rfPower = pw;
 }
+
 void setChannelRF(uint8_t ch) {
 	if (radio.isChipConnected()) radio.setChannel(ch);
 	myChannel = ch;
 }
+
 void setAutoACK(bool active) {
 if (radio.isChipConnected()) radio.setAutoAck(active);
 autoACK = active; 
 }
+
 void setRetry(int delay,int times) {
 if (radio.isChipConnected()) radio.setRetries(delay,times);	
 retryDelay = delay;
 retryTimes = times;
 }
-bool checkCarrier() {
-	return radio.testRPD();
-}
+////////////////////////////////////////////
+bool checkCarrier() {					////
+		return radio.testRPD();			
+}										////
+////////////////////////////////////////////
 bool disableCRC(){
 if (radio.isChipConnected()) {
 	if  (!autoACK) {
@@ -108,7 +115,7 @@ rf24_crclength_e crcLen = RF24_CRC_8;
 rf24_datarate_e rfSpeed = RF24_250KBPS;
 rf24_pa_dbm_e rfPower = RF24_PA_LOW;
 bool autoACK = true; 
-int retryDelay = 10;
-int retryTimes = 4;
+int retryDelay = 5;
+int retryTimes = 1;
 };
 #endif
